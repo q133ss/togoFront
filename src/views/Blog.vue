@@ -1,0 +1,9 @@
+<template>
+    <h1>blog</h1>
+</template>
+<script>
+export default{
+    name: "Blog"
+}
+</script>
+<style scoped></style>
