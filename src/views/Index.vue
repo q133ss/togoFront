@@ -167,7 +167,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{margin ?? 0}}</h2>
               <h4 class="card-title mb-2">Маржа</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -203,7 +203,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{logistics ?? 0}}</h2>
               <h4 class="card-title mb-2">Логистика</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -212,7 +212,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{commission ?? 0}}</h2>
               <h4 class="card-title mb-2">Коммисия</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -239,7 +239,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{ransom ?? 0}}</h2>
               <h4 class="card-title mb-2">% выкупов</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -530,8 +530,45 @@
   </div>
 </template> 
 <script>
+import axios from "axios";
+
 export default{
-    name: "Index"
+    name: "Index",
+    data() {
+      return {
+        url: 'http://127.0.0.1:8000/api/',
+        token: 'Bearer 1|2jOiNCX7fNx7mfYhoBPTLjSVBN8HHISkqCTZ9WJz',
+        params: {
+          'dateFrom': '2023-05-01',
+          'dateTo': '2023-05-11'
+        },
+
+        margin: null,
+        logistics: null,
+        commission: null,
+        ransom: null
+      };
+    },
+    mounted() {
+      let config = {
+        headers: {
+          'Authorization': this.token
+        },
+        params: this.params
+      }
+
+      axios.get(this.url+'margin',config)
+          .then((response => {this.margin = response.data.margin}));
+
+      axios.get(this.url+'logistics',config)
+          .then((response => {this.logistics = response.data.logistics}));
+
+      axios.get(this.url+'commission',config)
+          .then((response => {this.commission = response.data.commission}));
+
+      axios.get(this.url+'ransom/percentage',config)
+          .then((response => {this.ransom = response.data.ransom}));
+    }
 }
 </script>
 <style scoped></style>
