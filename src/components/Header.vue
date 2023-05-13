@@ -15,8 +15,8 @@ export default {
                     href: "/"
                 },
                 {
-                    title: "Блог",
-                    href: "/blog"
+                    title: "Логин",
+                    href: "/login"
                 }
             ]
          }
