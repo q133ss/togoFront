@@ -2,6 +2,8 @@ import {createRouter, createWebHistory} from "vue-router";
 
 import Index from "@/views/Index.vue";
 import Login from '@/views/auth/login.vue';
+import Register from "@/views/auth/register.vue";
+import Profile from "@/views/profile/index.vue";
 
 //проверка на токен
 function checkAuth() {
@@ -33,6 +35,7 @@ function returnMainPage() {
         }
         if (c.indexOf(name) == 0) {
             //return c.substring(name.length, c.length);
+            //#TODO router push
             return window.location.href = '/';
         }
     }
@@ -43,7 +46,9 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: '/', component: Index, beforeEnter: [checkAuth]},
-        {path: '/login', component: Login, beforeEnter: [returnMainPage]}
+        {path: '/login', component: Login, beforeEnter: [returnMainPage]},
+        {path: '/register', component: Register, beforeEnter: [returnMainPage]},
+        {path: '/profile', component: Profile, beforeEnter: [checkAuth]}
     ]
 });
 

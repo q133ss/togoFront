@@ -10,9 +10,9 @@
             <label for="exampleInputEmail">Email</label>
             <div class="input-group">
               <div class="input-group-prepend bg-transparent">
-                      <span class="input-group-text bg-transparent border-right-0">
-                        <i class="mdi mdi-account-outline text-primary"></i>
-                      </span>
+<!--                      <span class="input-group-text bg-transparent border-right-0">-->
+<!--                        <i class="mdi mdi-account-outline text-primary"></i>-->
+<!--                      </span>-->
               </div>
               <input type="text" v-model="email" class="form-control form-control-lg border-left-0" :class="{'is-invalid':errorBool}" id="exampleInputEmail" placeholder="emaxple@email.com">
             </div>
@@ -21,9 +21,9 @@
             <label for="exampleInputPassword">Пароль</label>
             <div class="input-group">
               <div class="input-group-prepend bg-transparent">
-                      <span class="input-group-text bg-transparent border-right-0">
-                        <i class="mdi mdi-lock-outline text-primary"></i>
-                      </span>
+<!--                      <span class="input-group-text bg-transparent border-right-0">-->
+<!--                        <i class="mdi mdi-lock-outline text-primary"></i>-->
+<!--                      </span>-->
               </div>
               <input type="password" v-model="password" class="form-control form-control-lg border-left-0" :class="{'is-invalid':errorBool}" id="exampleInputPassword" placeholder="*********">
             </div>
@@ -38,7 +38,11 @@
 <!--            <a href="#" class="auth-link text-black">Forgot password?</a>-->
 <!--          </div>-->
           <div class="my-3">
-            <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" v-on:click="login" href="#">Войти</a>
+            <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn w-100" v-on:click="login" href="#">Войти</a>
+          </div>
+          <div class="text-center mt-4 font-weight-light">
+            Нет аккаунта?
+            <router-link to="/register">Регистрация</router-link>
           </div>
 <!--          <div class="mb-2 d-flex">-->
 <!--            <button type="button" class="btn btn-facebook auth-form-btn flex-grow me-1">-->

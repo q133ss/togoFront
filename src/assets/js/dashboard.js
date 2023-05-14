@@ -1165,8 +1165,8 @@
 		$("#productorder-gage").append('<div class="product-order"><div class="icon-inside-circle"><i class="mdi mdi-basket"></i></div></div>');
 
 		// Remove pro banner on close
-    document.querySelector('#bannerClose').addEventListener('click',function() {
-			$('#pro-banner').slideUp();
-    });
+    // document.querySelector('#bannerClose').addEventListener('click',function() {
+	// 		$('#pro-banner').slideUp();
+    // });
 	});
 })(jQuery);
