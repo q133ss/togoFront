@@ -12,6 +12,8 @@
       <div class="card-body">
         <h4 class="card-title">Профиль</h4>
         <form class="forms-sample">
+          <div class="text-danger">{{errorStr}}</div>
+          <div class="text-success">{{successStr}}</div>
           <div class="form-group">
             <label for="exampleInputUsername1">Имя</label>
             <input type="text" class="form-control" v-model="name" id="exampleInputUsername1" placeholder="Имя">
@@ -43,10 +45,12 @@ export default {
   name: "ProfileIndex",
   data() {
     return{
+      successStr: '',
+      errorStr: '',
       name: '',
       email: '',
-      password: '',
-      password_confirmation: ''
+      password: null,
+      password_confirmation: null
     }
   },
   mounted() {
@@ -60,7 +64,16 @@ export default {
   },
   methods: {
       update: function(){
-        updateProfile(this.name, this.email, this.password, this.password_confirmation);
+        let update = updateProfile(this.name, this.email, this.password, this.password_confirmation);
+        update.then((value) => {
+          if(value == 200){
+            this.errorStr = '';
+            this.successStr = 'Данные успешно обновлены';
+          }else{
+            this.successStr = '';
+            this.errorStr = value;
+          }
+        });
       }
   }
 }

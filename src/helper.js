@@ -38,26 +38,26 @@ export function getUserData(){
         });
 }
 
-//TODO не работает!!
 export function updateProfile(name, email, password, password_confirmation){
-    return axios.patch('http://localhost:8000/api/profile/update', {
-            headers: {
-                'Content-Type' : 'application/json',
-                'Accept' : 'application/json',
-                'Authorization' : 'Bearer 13|hXxVeRzq2g0w2aDIT7tz4yQxJke0CRpp3uR8fy4z'
-                //'Authorization': getApiKey()
-            },
-            params: {
-                'name': name,
-                'email': email,
-                'password': password,
-                'password_confirmation':password_confirmation
-            }
-        })
+    const data = {
+        'name': name,
+        'email': email,
+        'password': password,
+        'password_confirmation':password_confirmation
+    };
+    const configs = {
+        "headers": {
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json',
+            'Authorization': getApiKey()
+        },
+    };
+
+    return axios.patch('http://localhost:8000/api/profile/update', data, configs)
         .then((response) => {
-            return response;
+            return response.status;
         })
         .catch((error) => {
-            console.log('Ошибка');
+            return error.response.data.message;
         });
 }
