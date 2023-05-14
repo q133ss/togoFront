@@ -1,5 +1,6 @@
 //Возвращает АПИ ключ
 import axios from "axios";
+import router from "@/router";
 
 const url = 'http://127.0.0.1:8000/api'
 

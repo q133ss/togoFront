@@ -20,7 +20,7 @@ function checkAuth() {
             return true;
         }
     }
-    return window.location.href = '/login';
+    router.push({ path: '/login' })
 }
 
 //возвращает на главную со страниц с авторизацией
@@ -35,8 +35,7 @@ function returnMainPage() {
         }
         if (c.indexOf(name) == 0) {
             //return c.substring(name.length, c.length);
-            //#TODO router push
-            return window.location.href = '/';
+            return router.push({ path: '/' });
         }
     }
     return true;
