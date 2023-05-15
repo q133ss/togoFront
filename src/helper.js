@@ -1,6 +1,5 @@
 //Возвращает АПИ ключ
 import axios from "axios";
-import router from "@/router";
 
 const url = 'http://127.0.0.1:8000/api'
 
@@ -54,9 +53,95 @@ export function updateProfile(name, email, password, password_confirmation){
         },
     };
 
-    return axios.patch('http://localhost:8000/api/profile/update', data, configs)
+    return axios.patch(url+'/profile/update', data,configs)
         .then((response) => {
             return response.status;
+        })
+        .catch((error) => {
+            return error.response.data.message;
+        });
+}
+
+//Добавить ЛК
+export function addLk(name){
+    const data = {
+        'name': name
+    };
+    const configs = {
+        "headers": {
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json',
+            'Authorization': getApiKey()
+        },
+    };
+
+    return axios.post(url+'/profile/lk/add', data,configs)
+        .then((response) => {
+            return response.status;
+        })
+        .catch((error) => {
+            return error.response.data.message;
+        });
+}
+
+//Список ЛК
+export function lkList(){
+    const configs = {
+        "headers": {
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json',
+            'Authorization': getApiKey()
+        },
+    };
+
+    return axios.get(url+'/profile/lk/list',configs)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            return error.response.data.message;
+        });
+}
+
+//Добавить АПИ Ключ
+export function addApiKey(marketplace,key,type,lk){
+    const data = {
+        'marketplace': marketplace,
+        'key': key,
+        'type': type,
+        'lk_id': lk
+    };
+
+    const configs = {
+        "headers": {
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json',
+            'Authorization': getApiKey()
+        },
+    };
+
+    return axios.post(url+'/profile/add-api-key',data,configs)
+        .then((response) => {
+            return response.status;
+        })
+        .catch((error) => {
+            return error.response.data.message;
+        });
+}
+
+//Список АПИ ключей
+export function ApiKeysList(){
+    const configs = {
+        "headers": {
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json',
+            'Authorization': getApiKey()
+        },
+    };
+
+    return axios.get(url+'/profile/api-key/list',configs)
+        .then((response) => {
+            return response.data;
         })
         .catch((error) => {
             return error.response.data.message;

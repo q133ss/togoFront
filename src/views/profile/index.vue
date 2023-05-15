@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-md-3 card">
     <ul class="h-100 list-inline">
-      <li><a href="/profile" class="btn btn-primary w-100 mt-3">Профиль</a></li>
-      <li><a href="/settings" class="btn btn-primary w-100 mt-3">Настройки</a></li>
+      <router-link to="/profile" class="btn btn-primary w-100 mt-3">Профиль</router-link>
+      <router-link to="/settings" class="btn btn-primary w-100 mt-3">Настройки</router-link>
       <li><a href="/settings" class="btn btn-primary w-100 mt-3">Выйти</a></li>
     </ul>
   </div>
