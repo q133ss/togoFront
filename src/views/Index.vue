@@ -149,7 +149,7 @@
           <div class="card sale-diffrence-border">
             <div class="card-body">
               <i class="mdi mdi-alert-circle-outline"></i>
-              <h2 class="text-dark mb-2 font-weight-bold">$6475</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{sales ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Продажи</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -158,7 +158,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-diffrence-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$6475</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{orders ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Заказы</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -167,7 +167,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{margin ?? 0}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{margin ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Маржа</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -176,7 +176,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{leftovers ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Остаток</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -185,7 +185,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{adv ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Реклама</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -194,7 +194,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">????</h2>
               <h4 class="card-title mb-2">Оборот, дни</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -203,7 +203,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{logistics ?? 0}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{logistics ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Логистика</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -212,7 +212,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{commission ?? 0}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{commission ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Коммисия</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -221,7 +221,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{cancels ?? 0}}</h2>
               <h4 class="card-title mb-2">Отмены</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -230,7 +230,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{returns}}</h2>
               <h4 class="card-title mb-2">Возвраты</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -239,7 +239,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{ransom ?? 0}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{ransomPercentage ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">% выкупов</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -248,7 +248,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">$3479</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">???</h2>
               <h4 class="card-title mb-2">Самовыкупы</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -530,9 +530,10 @@
   </div>
 </template> 
 <script>
-import axios from "axios";
+import {sendRequest} from "@/helper";
 
 export default{
+  //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
     name: "Index",
     data() {
       return {
@@ -543,10 +544,16 @@ export default{
           'dateTo': '2023-05-11'
         },
 
+        sales: null,
+        orders: null,
         margin: null,
+        leftovers: null,
+        adv: null,
         logistics: null,
         commission: null,
-        ransom: null
+        cancels: null,
+        returns: null,
+        ransomPercentage: null
       };
     },
     mounted() {
@@ -557,17 +564,42 @@ export default{
         params: this.params
       }
 
-      axios.get(this.url+'margin',config)
-          .then((response => {this.margin = response.data.margin}));
+      sendRequest('/sales').then(data => {
+        this.sales = data.data.sales;
+      });
 
-      axios.get(this.url+'logistics',config)
-          .then((response => {this.logistics = response.data.logistics}));
+      sendRequest('/orders').then(data => {
+        this.orders = data.data.orders;
+      });
 
-      axios.get(this.url+'commission',config)
-          .then((response => {this.commission = response.data.commission}));
+      sendRequest('/margin').then(data => {
+        this.margin = data.data.margin;
+      });
 
-      axios.get(this.url+'ransom/percentage',config)
-          .then((response => {this.ransom = response.data.ransom}));
+      sendRequest('/leftovers').then(data => {
+        this.leftovers = data.data.amount[0].total;
+      });
+
+      sendRequest('/logistics').then(data => {
+        this.logistics = data.data.logistics;
+      });
+
+      sendRequest('/commission').then(data => {
+        this.commission = data.data.commission;
+      });
+
+      sendRequest('/cancels').then(data => {
+        this.cancels = data.data.cancels;
+      });
+
+      sendRequest('/returns').then(data => {
+        this.returns = data.data.returns;
+      });
+
+      sendRequest('/ransom/percentage').then(data => {
+        this.ransomPercentage = data.data.ransomPercentage;
+      });
+
     }
 }
 </script>

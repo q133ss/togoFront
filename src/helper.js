@@ -14,6 +14,9 @@ export function getApiKey(){
         }
         if (c.indexOf(name) == 0) {
             let resp = c.substring(name.length, c.length).slice(1);
+            //
+            resp = '1|2jOiNCX7fNx7mfYhoBPTLjSVBN8HHISkqCTZ9WJz';
+            //
             return 'Bearer '+resp;
         }
     }
@@ -146,4 +149,32 @@ export function ApiKeysList(){
         .catch((error) => {
             return error.response.data.message;
         });
+}
+
+//Получить выбранную дату
+export function getPeriod(){
+    return {
+        'dateFrom': '2023-05-01',
+        'dateTo': '2023-05-11'
+    };
+}
+
+export function getLkId(){
+    return 1;
+}
+
+//Данные для get запросов
+let data = getPeriod();
+data.lk_id = getLkId();
+
+let config = {
+    headers: {
+        'Authorization': getApiKey()
+    }
+}
+
+//отправляет запрос на сервер
+export function sendRequest(endpoint){
+    const response = axios.post(url+endpoint,data, config);
+    return response;
 }
