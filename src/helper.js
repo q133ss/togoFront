@@ -14,7 +14,7 @@ export function getApiKey(){
         }
         if (c.indexOf(name) == 0) {
             let resp = c.substring(name.length, c.length).slice(1);
-            //
+            //TODO исправить!!!!
             resp = '1|2jOiNCX7fNx7mfYhoBPTLjSVBN8HHISkqCTZ9WJz';
             //
             return 'Bearer '+resp;
@@ -22,6 +22,38 @@ export function getApiKey(){
     }
     return false;
 }
+
+let config = {
+    headers: {
+        'Authorization': getApiKey()
+    }
+}
+
+let getPeriodAttempts = 5;
+
+//Получить выбранную дату
+export function getPeriod(){
+    getPeriodAttempts -= 1;
+    //проверяем куки, если их нет считаем месяц назад
+    if(getPeriodCookie('dateFrom') && getPeriodCookie('dateTo')){
+        return {
+            'dateFrom': getPeriodCookie('dateFrom'),
+            'dateTo': getPeriodCookie('dateTo')
+        };
+    }else{
+        if(getPeriodAttempts > 0) {
+            changePeriod('month');
+            getPeriod();
+        }else{
+            return false;
+        }
+    }
+    return true;
+}
+
+//Данные для get запросов
+let data = getPeriod();
+data.lk_id = getLkId();
 
 //Возвращает информацию о текущем юзере
 export function getUserData(){
@@ -151,26 +183,47 @@ export function ApiKeysList(){
         });
 }
 
-//Получить выбранную дату
-export function getPeriod(){
-    return {
-        'dateFrom': '2023-05-01',
-        'dateTo': '2023-05-11'
-    };
+//Возвращает куки с выбранным периодом
+function getPeriodCookie(name){
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            let resp = c.substring(name.length, c.length).slice(1);
+            return resp;
+        }
+    }
+    return false;
+}
+
+//Сменить период
+export function changePeriod(periodName) {
+    let dateFrom, dateTo;
+
+    axios.get(url + '/get-date/' + periodName, config)
+        .then((response) => {
+            dateFrom = response.data.dateFrom;
+            dateTo = response.data.dateTo;
+
+            // Remove old cookies
+            document.cookie = 'dateFrom=; path=/; expires=-1';
+            document.cookie = 'dateTo=; path=/; expires=-1';
+            // Create new cookies
+            document.cookie = "dateFrom=" + dateFrom;
+            document.cookie = "dateTo=" + dateTo;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    return true;
 }
 
 export function getLkId(){
     return 1;
-}
-
-//Данные для get запросов
-let data = getPeriod();
-data.lk_id = getLkId();
-
-let config = {
-    headers: {
-        'Authorization': getApiKey()
-    }
 }
 
 //отправляет запрос на сервер

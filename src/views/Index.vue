@@ -19,29 +19,30 @@
 <!--        </div>-->
       </div>
     </div>
+<!--    TODO по дефолту будет месяц-->
     <div class="col-sm-6">
       <div class="d-flex align-items-center justify-content-md-end">
         <div class="pe-1 mb-3 mb-xl-0">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="ExampleRadio1" id="ExampleRadio1" checked="">
+            <input type="radio" class="form-check-input" v-on:click="changePeriod('yesterday')" name="ExampleRadio1" id="ExampleRadio1" :checked="day == true">
             Вчерашний день
             <i class="input-helper"></i></label>
         </div>
         <div class="pe-1 mb-3 mb-xl-0">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="ExampleRadio1" id="ExampleRadio1" checked="">
+            <input type="radio" class="form-check-input" v-on:click="changePeriod('week')" name="ExampleRadio1" id="ExampleRadio1" :checked="week == true">
             Текущая неделя
             <i class="input-helper"></i></label>
         </div>
         <div class="pe-1 mb-3 mb-xl-0">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="ExampleRadio1" id="ExampleRadio1" checked="">
+            <input type="radio" class="form-check-input" v-on:click="changePeriod('month')" name="ExampleRadio1" id="ExampleRadio1" :checked="month == true">
             Текущий месяц
             <i class="input-helper"></i></label>
         </div>
         <div class="pe-1 mb-3 mb-xl-0">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="ExampleRadio1" id="ExampleRadio1" checked="">
+            <input type="radio" class="form-check-input" v-on:click="changePeriod('year')" name="ExampleRadio1" id="ExampleRadio1" :checked="year == true">
             Текущий год
             <i class="input-helper"></i></label>
         </div>
@@ -49,11 +50,11 @@
       <div class="d-flex align-items-center justify-content-md-end mt-4">
         <div class="col-sm-3 d-flex">
           <label for="" class="" style="margin-right: 10px">От</label>
-          <input class="form-control" type="date" placeholder="dd/mm/yyyy" style="height: 25px; padding: 0;">
+          <input class="form-control" type="date" placeholder="dd/mm/yyyy" v-model="dateFrom" style="height: 25px; padding: 0;">
         </div>
         <div class="col-sm-3 d-flex" style="margin-left: 20px;">
           <label for="" class="" style="margin-right: 10px">До</label>
-          <input class="form-control" type="date" placeholder="dd/mm/yyyy" style="height: 25px; padding: 0;">
+          <input class="form-control" type="date" placeholder="dd/mm/yyyy" v-model="dateTo" style="height: 25px; padding: 0;">
         </div>
       </div>
     </div>
@@ -530,19 +531,20 @@
   </div>
 </template> 
 <script>
-import {sendRequest} from "@/helper";
+import {changePeriod, sendRequest} from "@/helper";
 
 export default{
   //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
     name: "Index",
     data() {
       return {
-        url: 'http://127.0.0.1:8000/api/',
-        token: 'Bearer 1|2jOiNCX7fNx7mfYhoBPTLjSVBN8HHISkqCTZ9WJz',
-        params: {
-          'dateFrom': '2023-05-01',
-          'dateTo': '2023-05-11'
-        },
+        //даты
+        day: false,
+        month: false,
+        week: false,
+        year: false,
+        dateFrom: null,
+        dateTo: null,
 
         sales: null,
         orders: null,
@@ -557,13 +559,6 @@ export default{
       };
     },
     mounted() {
-      let config = {
-        headers: {
-          'Authorization': this.token
-        },
-        params: this.params
-      }
-
       sendRequest('/sales').then(data => {
         this.sales = data.data.sales;
       });
@@ -599,7 +594,12 @@ export default{
       sendRequest('/ransom/percentage').then(data => {
         this.ransomPercentage = data.data.ransomPercentage;
       });
-
+    },
+    methods:{
+        changePeriod: function (period){
+          changePeriod(period);
+          setTimeout(() => location.reload(), 1000);
+        }
     }
 }
 </script>

@@ -65,6 +65,7 @@
 import axios from "axios";
 
 export default {
+  //TODO переделать под урл
   name: "login",
   data() {
     return {

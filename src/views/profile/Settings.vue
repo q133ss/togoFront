@@ -67,13 +67,16 @@
             <button type="button" class="btn btn-primary me-2" v-on:click="createApiKey">Добавить</button>
 
             <h5 class="mt-3">Список АПИ ключей</h5>
-            <div class="input-group mt-2" v-for="key in apiKeys">
-              <span>{{key.marketplace}}}</span>
-              <span>{{key.key}}}</span>
-              <span>{{key.type}}}</span>
-              <span>{{key.lk_id}}}</span>
-              <div class="input-group-append">
-                <button class="btn btn-sm btn-danger h-100" type="button">Удалить</button>
+            <div class="card mt-3" v-for="key in apiKeys">
+              <div class="card-body">
+                <h5 class="card-title">Ozon</h5>
+<!--                <span>{{key.marketplace}}</span>-->
+                <p class="card-text">Ключ: <strong>{{key.key}}</strong></p>
+                <p class="card-text">Тип: {{getType(key.type)}}</p>
+                <p>Личный кабинет: {{key.lk_id}}</p>
+                <div class="input-group-append">
+                  <button class="btn btn-sm btn-danger h-100" type="button">Удалить</button>
+                </div>
               </div>
             </div>
           </form>
@@ -143,6 +146,16 @@ export default {
           this.errorStr = value;
         }
       });
+    },
+    getType: function (type){
+        switch (type){
+          case "standard":
+            return "Стандартный";
+          case "statistic":
+            return "Статистический";
+          case "ad":
+            return "Рекламный";
+        }
     }
   }
 }

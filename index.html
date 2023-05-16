@@ -16,9 +16,30 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="/src/assets/images/favicon.png" />
 
+    <style>
+        .display-n{display: none!important;}
+    </style>
+
     <script type="module">
-        import Router from "@/router";
+        //Проверка на авторизацию
+        //Если не авторизованны, то удаляем меню
+        import {getApiKey} from "@/helper";
+        if(!getApiKey()){
+            document.querySelector('.bottom-navbar').remove()
+            document.querySelector('#profileArea').remove();
+            document.querySelector('#authArea').classList.remove('display-n');
+            document.querySelector('#authArea').style.opacity = 1;
+            document.querySelector('#notificationDropdown').remove();
+        }else{
+            document.querySelector('.bottom-navbar').style.display = 'flex';
+            document.querySelector('#authArea').remove();
+            document.querySelector('#profileArea').classList.remove('display-n');
+            document.querySelector('#profileArea').style.opacity = 1;
+            document.querySelector('#notificationDropdown').style.opacity = 1;
+        }
+
         //Переход по ссылкам
+        import Router from "@/router";
         let routeLinks = document.querySelectorAll('.routeLink');
 
         routeLinks.forEach(link => {
@@ -37,11 +58,9 @@
             <div class="container-fluid">
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
                     <ul class="navbar-nav navbar-nav-left">
-                        <li class="nav-item ms-0 me-5 d-lg-flex d-none">
-                            <a href="#" class="nav-link horizontal-nav-left-menu"><i class="mdi mdi-format-list-bulleted"></i></a>
-                        </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" style="opacity: 0" href="#" data-bs-toggle="dropdown">
                                 <i class="mdi mdi-bell mx-0"></i>
                                 <span class="count bg-success">2</span>
                             </a>
@@ -93,7 +112,22 @@
                         <a class="navbar-brand brand-logo" href="index.html"><img src="/src/assets/images/logo.svg" alt="logo"/></a>
                         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/src/assets/images/logo-mini.svg" alt="logo"/></a>
                     </div>
-                    <ul class="navbar-nav navbar-nav-right">
+
+
+
+                    <ul class="navbar-nav navbar-nav-right display-n" id="authArea" style="opacity: 0">
+                        <li class="nav-item dropdown d-lg-flex d-none">
+                            <a class="btn btn-inverse-primary btn-sm routeLink" data-link="/login" href="#">
+                                Вход
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown d-lg-flex d-none">
+                            <a class="btn btn-inverse-primary btn-sm routeLink" data-link="/register" href="#">
+                                Регистрация
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav navbar-nav-right display-n" id="profileArea" style="opacity: 0">
                         <li class="nav-item dropdown d-lg-flex d-none">
                             <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
                                 Личные кабинеты
@@ -139,7 +173,7 @@
                 </div>
             </div>
         </nav>
-        <nav class="bottom-navbar">
+        <nav class="bottom-navbar" style="display: none">
             <div class="container">
                 <ul class="nav page-navigation">
                     <li class="nav-item">
