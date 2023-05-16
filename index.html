@@ -22,20 +22,13 @@
 
     <script type="module">
         //Проверка на авторизацию
-        //Если не авторизованны, то удаляем меню
-        import {getApiKey} from "@/helper";
+
+        import {getApiKey, showAuthInterface} from "@/helper";
+        //отображение меню
         if(!getApiKey()){
-            document.querySelector('.bottom-navbar').remove()
-            document.querySelector('#profileArea').remove();
-            document.querySelector('#authArea').classList.remove('display-n');
-            document.querySelector('#authArea').style.opacity = 1;
-            document.querySelector('#notificationDropdown').remove();
+            showAuthInterface(false);
         }else{
-            document.querySelector('.bottom-navbar').style.display = 'flex';
-            document.querySelector('#authArea').remove();
-            document.querySelector('#profileArea').classList.remove('display-n');
-            document.querySelector('#profileArea').style.opacity = 1;
-            document.querySelector('#notificationDropdown').style.opacity = 1;
+            showAuthInterface(true);
         }
 
         //Переход по ссылкам

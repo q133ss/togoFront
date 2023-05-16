@@ -1,5 +1,6 @@
 //Возвращает АПИ ключ
 import axios from "axios";
+import Router from "@/router";
 
 const url = 'http://127.0.0.1:8000/api'
 
@@ -210,8 +211,8 @@ export function changePeriod(periodName) {
             dateTo = response.data.dateTo;
 
             // Remove old cookies
-            document.cookie = 'dateFrom=; path=/; expires=-1';
-            document.cookie = 'dateTo=; path=/; expires=-1';
+            document.cookie = 'dateFrom=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+            document.cookie = 'dateTo=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
             // Create new cookies
             document.cookie = "dateFrom=" + dateFrom;
             document.cookie = "dateTo=" + dateTo;
@@ -226,8 +227,39 @@ export function getLkId(){
     return 1;
 }
 
+//отправляет запрос на сервер с данными
+export function sendRequestWithBody(endpoint, _data){
+    const response = axios.post(url+endpoint, _data, config);
+    return response;
+}
+
 //отправляет запрос на сервер
 export function sendRequest(endpoint){
     const response = axios.post(url+endpoint,data, config);
     return response;
+}
+
+//показывает интерфейс для АВТОРИЗОВАННЫХ и НЕАВТОРИЗОВАННЫХ юзеров
+export function showAuthInterface(type){
+    if(type === false) {
+        document.querySelector('.bottom-navbar').style.opacity = 0;
+        document.querySelector('#profileArea').style.opacity = 0;
+        document.querySelector('#notificationDropdown').style.opacity = 0;
+
+        document.querySelector('#authArea').style.opacity = 1;
+    }else if(type === true){
+        document.querySelector('.bottom-navbar').style.display = 'flex';
+        document.querySelector('.bottom-navbar').style.opacity = 1;
+        document.querySelector('#profileArea').style.opacity = 1;
+        document.querySelector('#notificationDropdown').style.opacity = 1;
+
+        document.querySelector('#authArea').style.opacity = 0;
+    }
+}
+
+//выход из профиля
+export function logout(){
+    document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+    showAuthInterface(false);
+    Router.push('/login');
 }

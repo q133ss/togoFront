@@ -62,10 +62,11 @@
 </template>
 
 <script>
-import axios from "axios";
+
+import {sendRequestWithBody, showAuthInterface} from "@/helper";
+import Router from "@/router";
 
 export default {
-  //TODO переделать под урл
   name: "login",
   data() {
     return {
@@ -76,11 +77,14 @@ export default {
     }
   },
   methods: {
-    login: function(){
-      axios.post('http://127.0.0.1:8000/api/login',{email:this.email, password:this.password})
+    login: function (){
+      sendRequestWithBody('/login', {email : this.email, password : this.password})
           .then((response) => {
             document.cookie = "token="+response.data.token;
-          }).catch((error) => {
+            showAuthInterface(true);
+            Router.push('/profile');
+          })
+          .catch((error) => {
             if (error.response) {
               switch (error.response.status){
                 case 422:
@@ -91,7 +95,7 @@ export default {
                   break;
               }
             }
-      });
+          });
     }
   }
 }

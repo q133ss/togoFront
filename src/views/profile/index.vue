@@ -4,7 +4,7 @@
     <ul class="h-100 list-inline">
       <router-link to="/profile" class="btn btn-primary w-100 mt-3">Профиль</router-link>
       <router-link to="/settings" class="btn btn-primary w-100 mt-3">Настройки</router-link>
-      <li><a href="/settings" class="btn btn-primary w-100 mt-3">Выйти</a></li>
+      <li><a href="#" v-on:click="logout" class="btn btn-primary w-100 mt-3">Выйти</a></li>
     </ul>
   </div>
   <div class="col-md-9 grid-margin stretch-card">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {getUserData, updateProfile} from "@/helper";
+import {getUserData, logout, updateProfile} from "@/helper";
 
 export default {
   name: "ProfileIndex",
@@ -74,7 +74,10 @@ export default {
             this.errorStr = value;
           }
         });
-      }
+      },
+    logout: function (){
+        logout();
+    }
   }
 }
 </script>
