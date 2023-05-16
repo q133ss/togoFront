@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import router from "@/router";
+import {sendRequestWithBody, showAuthInterface} from "@/helper";
 
 export default {
   name: "register",
@@ -50,9 +50,10 @@ export default {
   },
   methods: {
     register: function(){
-      axios.post('http://127.0.0.1:8000/api/register',{name: this.username,email:this.email, password:this.password, password_confirmation: this.password_confirmation})
+      sendRequestWithBody('/register', {name: this.username,email:this.email, password:this.password, password_confirmation: this.password_confirmation})
           .then((response) => {
             document.cookie = "token="+response.data.token;
+            showAuthInterface(true);
             router.push({ path: '/profile' })
           }).catch((error) => {
         if (error.response) {

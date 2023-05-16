@@ -4,7 +4,7 @@
       <ul class="h-100 list-inline">
         <router-link to="/profile" class="btn btn-primary w-100 mt-3">Профиль</router-link>
         <router-link to="/settings" class="btn btn-primary w-100 mt-3">Настройки</router-link>
-        <li><a href="/settings" class="btn btn-primary w-100 mt-3">Выйти</a></li>
+        <li><a href="#" v-on:click="logout" class="btn btn-primary w-100 mt-3">Выйти</a></li>
       </ul>
     </div>
     <div class="col-md-9 grid-margin stretch-card">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import {addApiKey, addLk, ApiKeysList, lkList} from "@/helper";
+import {addApiKey, addLk, ApiKeysList, lkList, logout} from "@/helper";
 
 export default {
   name: "Settings",
@@ -156,6 +156,9 @@ export default {
           case "ad":
             return "Рекламный";
         }
+    },
+    logout: function (){
+      logout();
     }
   }
 }

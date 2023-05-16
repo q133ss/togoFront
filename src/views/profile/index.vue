@@ -60,6 +60,7 @@ export default {
     data.then(({name, email}) => {
       this.name = name;
       this.email = email;
+      document.querySelector('.nav-profile-name').textContent = name;
     });
   },
   methods: {

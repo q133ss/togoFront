@@ -15,12 +15,10 @@ export function getApiKey(){
         }
         if (c.indexOf(name) == 0) {
             let resp = c.substring(name.length, c.length).slice(1);
-            //TODO исправить!!!!
-            resp = '1|2jOiNCX7fNx7mfYhoBPTLjSVBN8HHISkqCTZ9WJz';
-            //
             return 'Bearer '+resp;
         }
     }
+
     return false;
 }
 
