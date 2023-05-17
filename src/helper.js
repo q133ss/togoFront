@@ -50,9 +50,34 @@ export function getPeriod(){
     return true;
 }
 
+//Получить ИД текущего ЛК
+export function getLkId(){
+    let id;
+    if(getLkCookie()){
+        id = getLkCookie();
+    }else {
+        try {
+            let lks = axios.get(url + '/profile/lk/list', config);
+            lks.then((data) => {
+                let firstItem = data.data[0];
+                document.cookie = "lk=" + firstItem.id;
+                id = firstItem.id;
+            });
+        }catch (e){
+            id = 0;
+        }
+    }
+
+    if(id === undefined){
+        id = 0;
+    }
+
+    return id;
+}
+
+let data = {lk_id : getLkId()};
 //Данные для get запросов
-let data = getPeriod();
-data.lk_id = getLkId();
+data += getPeriod();
 
 //Возвращает информацию о текущем юзере
 export function getUserData(){
@@ -237,27 +262,6 @@ export function getLkCookie(){
     }
 
     return false;
-}
-
-//Получить ИД текущего ЛК
-export function getLkId(){
-    let id;
-    if(getLkCookie()){
-        id = getLkCookie();
-    }else {
-        try {
-            let lks = axios.get(url + '/profile/lk/list', config);
-            lks.then((data) => {
-                let firstItem = data.data[0];
-                document.cookie = "lk=" + firstItem.id;
-                id = firstItem.id;
-            });
-        }catch (e){
-            id = 0;
-        }
-    }
-
-    return id;
 }
 
 export function changeHeaderLk(id){

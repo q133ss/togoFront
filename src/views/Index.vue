@@ -559,6 +559,26 @@ export default{
       };
     },
     mounted() {
+      function getDate(type){
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(type) == 0) {
+            let resp = c.substring(type.length, c.length).slice(1);
+            return resp;
+          }
+        }
+
+        return false;
+      }
+
+      this.dateFrom = getDate('dateFrom');
+      this.dateTo = getDate('dateTo');
+
       sendRequest('/sales').then(data => {
         this.sales = data.data.sales;
       });
@@ -594,6 +614,14 @@ export default{
       sendRequest('/ransom/percentage').then(data => {
         this.ransomPercentage = data.data.ransomPercentage;
       });
+    },
+    watch: {
+      dateFrom(newVal, oldVal) {
+        document.cookie = "dateFrom=" + newVal;
+      },
+      dateTo(newVal, oldVal) {
+        document.cookie = "dateTo=" + newVal;
+      }
     },
     methods:{
         changePeriod: function (period){
