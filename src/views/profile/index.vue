@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {getUserData, logout, updateProfile} from "@/helper";
+import {changeHeaderLk, getLkId, getUserData, logout, updateProfile} from "@/helper";
 
 export default {
   name: "ProfileIndex",
@@ -56,11 +56,9 @@ export default {
   mounted() {
     //getAPiKey
     let data = getUserData();
-
     data.then(({name, email}) => {
       this.name = name;
       this.email = email;
-      document.querySelector('.nav-profile-name').textContent = name;
     });
   },
   methods: {

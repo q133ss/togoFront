@@ -23,12 +23,22 @@
     <script type="module">
         //Проверка на авторизацию
 
-        import {getApiKey, logout, showAuthInterface} from "@/helper";
+        import {changeHeaderLk, getApiKey, getLkId, getUserData, loadLks, logout, showAuthInterface} from "@/helper";
+
+        changeHeaderLk(getLkId());
+
         //отображение меню
         if(!getApiKey()){
             showAuthInterface(false);
         }else{
             showAuthInterface(true);
+            let data = getUserData();
+            //ставим имя в хедер
+            data.then(({name, email}) => {
+                document.querySelector('.nav-profile-name').textContent = name;
+            });
+            //lks
+            loadLks();
         }
 
         //Переход по ссылкам
@@ -46,6 +56,13 @@
         document.querySelector('#logout').addEventListener('click', function(e) {
             logout();
         });
+    </script>
+    <script>
+        function lkClick(id){
+            const myEvent = new Event('changeLk');
+            // Генерация события
+            document.dispatchEvent(myEvent);
+        }
     </script>
 </head>
 <body>
@@ -127,19 +144,11 @@
                     </ul>
                     <ul class="navbar-nav navbar-nav-right display-n" id="profileArea" style="opacity: 0">
                         <li class="nav-item dropdown d-lg-flex d-none">
-                            <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm lkHeader" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
                                 Личные кабинеты
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
-                                <p class="mb-0 font-weight-medium float-left dropdown-header">Reports</p>
-                                <a class="dropdown-item">
-                                    <i class="mdi mdi-file-pdf text-primary"></i>
-                                    ИП Иванов
-                                </a>
-                                <a class="dropdown-item">
-                                    <i class="mdi mdi-file-excel text-primary"></i>
-                                    ИП Иванов
-                                </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" id="lks" aria-labelledby="nreportDropdown">
+<!--                                <p class="mb-0 font-weight-medium float-left dropdown-header">Reports</p>-->
                             </div>
                         </li>
 

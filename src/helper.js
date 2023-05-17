@@ -221,8 +221,73 @@ export function changePeriod(periodName) {
     return true;
 }
 
+export function getLkCookie(){
+    let name = "lk";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            let resp = c.substring(name.length, c.length).slice(1);
+            return resp;
+        }
+    }
+
+    return false;
+}
+
+//Получить ИД текущего ЛК
 export function getLkId(){
-    return 1;
+    let id;
+    if(getLkCookie()){
+        id = getLkCookie();
+    }else {
+        try {
+            let lks = axios.get(url + '/profile/lk/list', config);
+            lks.then((data) => {
+                let firstItem = data.data[0];
+                document.cookie = "lk=" + firstItem.id;
+                id = firstItem.id;
+            });
+        }catch (e){
+            id = 0;
+        }
+    }
+
+    return id;
+}
+
+export function changeHeaderLk(id){
+    axios.get(url+'/get-lk/'+id, config)
+        .then((data) => {
+            document.querySelector('.lkHeader').innerHTML = data.data.lk.name;
+        });
+}
+
+//смена ЛК
+export function changeLkEvent(event){
+    let id = event.explicitOriginalTarget.attributes[1].nodeValue;
+    let status;
+    axios.post(url+'/profile/lk/update/'+id)
+        .then(response => {
+            status = response.status;
+        })
+        .catch(error => {
+            status = error.response.status;
+        });
+
+    if(status !== 302) {
+        document.cookie = 'lk=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+        document.cookie = "lk=" + id;
+        //ставим ЛК в хедер
+        changeHeaderLk(id);
+    }else{
+        alert(230);
+    }
+    return true;
 }
 
 //отправляет запрос на сервер с данными
@@ -261,3 +326,35 @@ export function logout(){
     showAuthInterface(false);
     Router.push('/login');
 }
+
+//Загрузка всех ЛК в верстку
+export function loadLks(){
+    let lks = axios.get(url+'/profile/lk/list', config);
+    lks.then((data) => {
+        data.data.forEach(item => {
+            let id = item.id;
+            let name = item.name;
+
+            // тут добавляем данные в верстку
+            const element = document.querySelector('#lks');
+            const childElement = document.createElement('a');
+            childElement.className = 'dropdown-item lk-item';
+            childElement.setAttribute('data-id', id);
+            childElement.setAttribute('onclick', 'lkClick('+id+')');
+            childElement.innerHTML = '<i class="mdi mdi-file-excel text-primary"></i>'+name;
+
+            element.appendChild(childElement);
+        });
+    });
+    return true;
+}
+
+
+export function handleEvent(event) {
+    alert(123);
+    console.log('Событие myEvent вызвано');
+    // Дополнительные действия при вызове события
+}
+
+// Добавление слушателя события к элементу или объекту
+document.addEventListener('changeLk', changeLkEvent);
