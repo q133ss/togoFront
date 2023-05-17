@@ -27,10 +27,11 @@
 
                 <h5 class="mt-3">Список ЛК</h5>
                 <div class="input-group mt-2" v-for="lk in lks">
-                  <input type="text" class="form-control" disabled placeholder="ИП Иванов" :value="lk.name" :data-id="lk.id" aria-label="ИП Иванов">
+                  <input type="text" class="form-control lk-input" disabled placeholder="ИП Иванов" :value="lk.name" :data-id="lk.id" aria-label="ИП Иванов">
                   <div class="input-group-append">
-                    <button class="btn btn-sm btn-warning h-100" type="button">Изменить</button>
-                    <button class="btn btn-sm btn-danger h-100" type="button">Удалить</button>
+                    <button class="btn btn-sm btn-warning h-100 lkEditBtn" :data-id="lk.id" v-on:click="lkEdit(lk.id)" type="button">Изменить</button>
+                    <button class="btn btn-sm btn-success h-100 lkSaveBtn" :data-id="lk.id" style="display: none" v-on:click="lkSave(lk.id)" type="button">Сохранить</button>
+                    <button class="btn btn-sm btn-danger h-100" v-on:click="lkDelete(lk.id)" type="button">Удалить</button>
                   </div>
                 </div>
               </div>
@@ -69,11 +70,11 @@
             <h5 class="mt-3">Список АПИ ключей</h5>
             <div class="card mt-3" v-for="key in apiKeys">
               <div class="card-body">
-                <h5 class="card-title">Ozon</h5>
-<!--                <span>{{key.marketplace}}</span>-->
+<!--                TODO Добавить гет тайп для типа-->
+                <h5 class="card-title">{{getPlaceName(key.marketplace)}}</h5>
                 <p class="card-text">Ключ: <strong>{{key.key}}</strong></p>
                 <p class="card-text">Тип: {{getType(key.type)}}</p>
-                <p>Личный кабинет: {{key.lk_id}}</p>
+                <p>Личный кабинет: {{lkNameFromKey(key.lk_id)}} <span class="_lk" :data-id="key.lk_id"></span></p>
                 <div class="input-group-append">
                   <button class="btn btn-sm btn-danger h-100" type="button">Удалить</button>
                 </div>
@@ -87,7 +88,7 @@
 </template>
 
 <script>
-import {addApiKey, addLk, ApiKeysList, lkList, logout} from "@/helper";
+import {addApiKey, addLk, ApiKeysList, getLkName, lkList, logout, sendRequestWithBody} from "@/helper";
 
 export default {
   name: "Settings",
@@ -156,6 +157,56 @@ export default {
           case "ad":
             return "Рекламный";
         }
+    },
+    lkEdit: function (id){
+      document.querySelector('.lkEditBtn[data-id="'+id+'"]').style.display = 'none';
+      document.querySelector('.lkSaveBtn[data-id="'+id+'"]').style.display = 'inline-block';
+      document.querySelector('.lk-input[data-id="'+id+'"]').removeAttribute('disabled');
+    },
+    lkSave: function (id){
+      document.querySelector('.lkEditBtn[data-id="'+id+'"]').style.display = 'inline-block';
+      document.querySelector('.lkSaveBtn[data-id="'+id+'"]').style.display = 'none';
+      let input = document.querySelector('.lk-input[data-id="'+id+'"]');
+      input.setAttribute('disabled', '');
+
+      sendRequestWithBody('/profile/lk/update/'+id,{name:input.value})
+          .catch((error) => {
+            alert(error.response.data.message)
+          });
+    },
+    lkDelete: function (id){
+      let conf = confirm('Подтвердите удаление');
+      if(conf) {
+        sendRequestWithBody('/profile/lk/delete', {lk_id: id})
+            .catch((error) => {
+              alert(error.response.data.message)
+            });
+        let list = lkList();
+        list.then(result => {
+          this.lks = result;
+        });
+      }
+    },
+    getPlaceName: function (name){
+      switch (name) {
+        case 'WB':
+          return 'Wildberries';
+        case 'OZ':
+          return 'Ozon';
+        case 'YA':
+          return 'Yandex';
+        default:
+          return 'Ошибка';
+      }
+    },
+    lkNameFromKey: function (lk_id){
+      getLkName(lk_id)
+          .then(name => {
+            document.querySelector('._lk[data-id="'+lk_id+'"]').innerHTML = name;
+          })
+          .catch(error => {
+            console.error(error);
+          });
     },
     logout: function (){
       logout();

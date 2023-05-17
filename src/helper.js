@@ -267,6 +267,27 @@ export function changeHeaderLk(id){
         });
 }
 
+export async function getLkName(lk_id) {
+    try {
+        const response = await axios.get(url+'/get-lk/'+lk_id, config);
+        const lkName = response.data.lk.name;
+        return lkName;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+    // return axios.get(url + '/get-lk/' + lk_id, config)
+    //     .then((data) => {
+    //         return data.data.lk.name;
+    //     })
+    //     .catch((e) => {
+    //         console.error(e);
+    //         throw new Error('Ошибка');
+    //     });
+}
+
+
+
 //смена ЛК
 export function changeLkEvent(event){
     let id = event.explicitOriginalTarget.attributes[1].nodeValue;
