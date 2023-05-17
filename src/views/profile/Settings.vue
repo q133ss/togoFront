@@ -70,13 +70,12 @@
             <h5 class="mt-3">Список АПИ ключей</h5>
             <div class="card mt-3" v-for="key in apiKeys">
               <div class="card-body">
-<!--                TODO Добавить гет тайп для типа-->
                 <h5 class="card-title">{{getPlaceName(key.marketplace)}}</h5>
                 <p class="card-text">Ключ: <strong>{{key.key}}</strong></p>
                 <p class="card-text">Тип: {{getType(key.type)}}</p>
                 <p>Личный кабинет: {{lkNameFromKey(key.lk_id)}} <span class="_lk" :data-id="key.lk_id"></span></p>
                 <div class="input-group-append">
-                  <button class="btn btn-sm btn-danger h-100" type="button">Удалить</button>
+                  <button class="btn btn-sm btn-danger h-100" v-on:click="apiKeyDelete(key.id)" type="button">Удалить</button>
                 </div>
               </div>
             </div>
@@ -88,7 +87,15 @@
 </template>
 
 <script>
-import {addApiKey, addLk, ApiKeysList, getLkName, lkList, logout, sendRequestWithBody} from "@/helper";
+import {
+  addApiKey,
+  addLk,
+  ApiKeysList,
+  getLkName,
+  lkList,
+  logout,
+  sendRequestWithBody
+} from "@/helper";
 
 export default {
   name: "Settings",
@@ -142,6 +149,12 @@ export default {
         if(value === 200 || value === 201){
           this.errorStr = '';
           this.successStr = 'АПИ ключ успешно добавлен';
+
+          let keys = ApiKeysList();
+          keys.then(result => {
+            this.apiKeys = result;
+          });
+
         }else{
           this.successStr = '';
           this.errorStr = value;
@@ -207,6 +220,16 @@ export default {
           .catch(error => {
             console.error(error);
           });
+    },
+    apiKeyDelete: function (id){
+      let conf = confirm('Подтвердите');
+      if(conf) {
+        sendRequestWithBody('/profile/delete-api-key', {key_id: id});
+        let keys = ApiKeysList();
+        keys.then(result => {
+          this.apiKeys = result;
+        });
+      }
     },
     logout: function (){
       logout();

@@ -374,12 +374,4 @@ export function loadLks(){
     return true;
 }
 
-
-export function handleEvent(event) {
-    alert(123);
-    console.log('Событие myEvent вызвано');
-    // Дополнительные действия при вызове события
-}
-
-// Добавление слушателя события к элементу или объекту
 document.addEventListener('changeLk', changeLkEvent);
