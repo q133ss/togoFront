@@ -5,6 +5,7 @@ import Login from '@/views/auth/login.vue';
 import Register from "@/views/auth/register.vue";
 import Profile from "@/views/profile/index.vue";
 import Settings from "@/views/profile/Settings.vue";
+import Analytics from "@/views/Analytics.vue";
 
 //проверка на токен
 function checkAuth() {
@@ -49,7 +50,13 @@ const router = createRouter({
         {path: '/login', component: Login, beforeEnter: [returnMainPage]},
         {path: '/register', component: Register, beforeEnter: [returnMainPage]},
         {path: '/profile', component: Profile, beforeEnter: [checkAuth]},
-        {path: '/settings', component: Settings, beforeEnter: [checkAuth]}
+        {path: '/settings', component: Settings, beforeEnter: [checkAuth]},
+        {path: '/analytics', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/abc', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/stock', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/promotion', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/competitors', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/finance', component: Analytics, beforeEnter: [checkAuth]}
     ]
 });
 
