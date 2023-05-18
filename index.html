@@ -23,7 +23,16 @@
     <script type="module">
         //Проверка на авторизацию
 
-        import {changeHeaderLk, getApiKey, getLkId, getUserData, loadLks, logout, showAuthInterface} from "@/helper";
+        import {
+            changeHeaderLk,
+            getApiKey,
+            getLkId,
+            getUserData,
+            loadLks,
+            logout,
+            notifications,
+            showAuthInterface
+        } from "@/helper";
 
         changeHeaderLk(getLkId());
 
@@ -56,6 +65,9 @@
         document.querySelector('#logout').addEventListener('click', function(e) {
             logout();
         });
+
+        //Уведомления
+        notifications();
     </script>
     <script>
         function lkClick(id){
@@ -77,49 +89,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" style="opacity: 0" href="#" data-bs-toggle="dropdown">
                                 <i class="mdi mdi-bell mx-0"></i>
-                                <span class="count bg-success">2</span>
+<!--                                <span class="count bg-success">2</span>-->
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="mdi mdi-information mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Just now
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">÷
-                                            <i class="mdi mdi-settings mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="mdi mdi-account-box mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            2 days ago
-                                        </p>
-                                    </div>
-                                </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown" id="notifications">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Уведомления</p>
                             </div>
                         </li>
                     </ul>

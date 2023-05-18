@@ -348,6 +348,7 @@ export function showAuthInterface(type){
 //выход из профиля
 export function logout(){
     document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+    document.cookie = 'lk=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;';
     showAuthInterface(false);
     Router.push('/login');
 }
@@ -375,3 +376,57 @@ export function loadLks(){
 }
 
 document.addEventListener('changeLk', changeLkEvent);
+
+//уведомления
+export function notifications(){
+    let notificationsElement = document.getElementById("notifications");
+    let notifications = axios.get(url+'/notifications', config);
+    notifications.then((data) => {
+        data.data.forEach(item => {
+            let id = item.id;
+            let message = item.message;
+            let date = new Date(item.created_at);
+            let dateFormatted = date.toLocaleString('ru-RU', {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'});
+
+            // создаем дочерний элемент
+            let aElement = document.createElement("a");
+            aElement.className = "dropdown-item preview-item";
+
+            let divElement1 = document.createElement("div");
+            divElement1.className = "preview-thumbnail";
+
+            let divElement2 = document.createElement("div");
+            divElement2.className = "preview-icon bg-success";
+
+            let iElement = document.createElement("i");
+            iElement.className = "mdi mdi-information mx-0";
+
+            divElement2.appendChild(iElement);
+            divElement1.appendChild(divElement2);
+
+            let divElement3 = document.createElement("div");
+            divElement3.className = "preview-item-content";
+
+            let h6Element = document.createElement("h6");
+            h6Element.className = "preview-subject font-weight-normal";
+            h6Element.innerText = message;
+
+            let pElement = document.createElement("p");
+            pElement.className = "font-weight-light small-text mb-0 text-muted";
+            pElement.innerText = dateFormatted;
+
+            divElement3.appendChild(h6Element);
+            divElement3.appendChild(pElement);
+
+            aElement.appendChild(divElement1);
+            aElement.appendChild(divElement3);
+
+            notificationsElement.appendChild(aElement);
+        })
+        //TODO доделать!
+        // let allNotifications = document.createElement("a");
+        // allNotifications.className = "mb-0 font-weight-normal float-left dropdown-header";
+        // allNotifications.innerText = 'Все уведомления';
+        // notificationsElement.appendChild(allNotifications);
+    });
+}

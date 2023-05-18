@@ -222,7 +222,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{cancels ?? 0}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{cancels ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Отмены</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -231,7 +231,7 @@
         <div class="col-lg-4 d-flex grid-margin stretch-card">
           <div class="card sale-visit-statistics-border">
             <div class="card-body">
-              <h2 class="text-dark mb-2 font-weight-bold">{{returns}}</h2>
+              <h2 class="text-dark mb-2 font-weight-bold">{{returns ?? 'Данные отсутствуют'}}</h2>
               <h4 class="card-title mb-2">Возвраты</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
@@ -531,7 +531,7 @@
   </div>
 </template> 
 <script>
-import {changePeriod, sendRequest} from "@/helper";
+import {changePeriod, getLkId, sendRequest} from "@/helper";
 
 export default{
   //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
@@ -579,41 +579,43 @@ export default{
       this.dateFrom = getDate('dateFrom');
       this.dateTo = getDate('dateTo');
 
-      sendRequest('/sales').then(data => {
-        this.sales = data.data.sales;
-      });
+      if(getLkId() !== 0) {
+        sendRequest('/sales').then(data => {
+          this.sales = data.data.sales;
+        });
 
-      sendRequest('/orders').then(data => {
-        this.orders = data.data.orders;
-      });
+        sendRequest('/orders').then(data => {
+          this.orders = data.data.orders;
+        });
 
-      sendRequest('/margin').then(data => {
-        this.margin = data.data.margin;
-      });
+        sendRequest('/margin').then(data => {
+          this.margin = data.data.margin;
+        });
 
-      sendRequest('/leftovers').then(data => {
-        this.leftovers = data.data.amount[0].total;
-      });
+        sendRequest('/leftovers').then(data => {
+          this.leftovers = data.data.amount[0].total;
+        });
 
-      sendRequest('/logistics').then(data => {
-        this.logistics = data.data.logistics;
-      });
+        sendRequest('/logistics').then(data => {
+          this.logistics = data.data.logistics;
+        });
 
-      sendRequest('/commission').then(data => {
-        this.commission = data.data.commission;
-      });
+        sendRequest('/commission').then(data => {
+          this.commission = data.data.commission;
+        });
 
-      sendRequest('/cancels').then(data => {
-        this.cancels = data.data.cancels;
-      });
+        sendRequest('/cancels').then(data => {
+          this.cancels = data.data.cancels;
+        });
 
-      sendRequest('/returns').then(data => {
-        this.returns = data.data.returns;
-      });
+        sendRequest('/returns').then(data => {
+          this.returns = data.data.returns;
+        });
 
-      sendRequest('/ransom/percentage').then(data => {
-        this.ransomPercentage = data.data.ransomPercentage;
-      });
+        sendRequest('/ransom/percentage').then(data => {
+          this.ransomPercentage = data.data.ransomPercentage;
+        });
+      }
     },
     watch: {
       dateFrom(newVal, oldVal) {
