@@ -258,76 +258,33 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12 grid-margin d-flex stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex align-items-center justify-content-between">
-                <h4 class="card-title mb-2">Sales Difference</h4>
-                <div class="dropdown">
-                  <a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
-                  <a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="settingsDropdownsales">
-                    <i class="mdi mdi-dots-horizontal"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdownsales">
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-grease-pencil text-primary"></i>
-                      Edit
-                    </a>
-                    <a class="dropdown-item">
-                      <i class="mdi mdi-delete text-primary"></i>
-                      Delete
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active ps-2 pe-2" id="revenue-for-last-month-tab" data-bs-toggle="tab" href="#revenue-for-last-month" role="tab" aria-controls="revenue-for-last-month" aria-selected="true">Revenue for last month</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link ps-2 pe-2" id="server-loading-tab" data-bs-toggle="tab" href="#server-loading" role="tab" aria-controls="server-loading" aria-selected="false">Server loading</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link ps-2 pe-2" id="data-managed-tab" data-bs-toggle="tab" href="#data-managed" role="tab" aria-controls="data-managed" aria-selected="false">Data managed</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link ps-2 pe-2" id="sales-by-traffic-tab" data-bs-toggle="tab" href="#sales-by-traffic" role="tab" aria-controls="sales-by-traffic" aria-selected="false">Sales by traffic</a>
-                  </li>
-                </ul>
-                <div class="tab-content tab-no-active-fill-tab-content">
-                  <div class="tab-pane fade show active" id="revenue-for-last-month" role="tabpanel" aria-labelledby="revenue-for-last-month-tab">
-                    <div class="d-lg-flex justify-content-between">
-                      <p class="mb-4">+5.2% vs last 7 days</p>
-                      <div id="revenuechart-legend" class="revenuechart-legend">f</div>
-                    </div>
-                    <canvas id="revenue-for-last-month-chart"></canvas>
-                  </div>
-                  <div class="tab-pane fade" id="server-loading" role="tabpanel" aria-labelledby="server-loading-tab">
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-4">+5.2% vs last 7 days</p>
-                      <div id="serveLoading-legend" class="revenuechart-legend">f</div>
-                    </div>
-                    <canvas id="serveLoading"></canvas>
-                  </div>
-                  <div class="tab-pane fade" id="data-managed" role="tabpanel" aria-labelledby="data-managed-tab">
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-4">+5.2% vs last 7 days</p>
-                      <div id="dataManaged-legend" class="revenuechart-legend">f</div>
-                    </div>
-                    <canvas id="dataManaged"></canvas>
-                  </div>
-                  <div class="tab-pane fade" id="sales-by-traffic" role="tabpanel" aria-labelledby="sales-by-traffic-tab">
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-4">+5.2% vs last 7 days</p>
-                      <div id="salesTrafic-legend" class="revenuechart-legend">f</div>
-                    </div>
-                    <canvas id="salesTrafic"></canvas>
-                  </div>
+
+      <div class="col-sm-12 grid-margin d-flex stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+              <h4 class="card-title mb-2">Динамика развития, руб/шт</h4>
+              <div class="dropdown">
+                <a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
+                <a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="settingsDropdownsales">
+                  <i class="mdi mdi-dots-horizontal"></i></a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdownsales">
+                  <a class="dropdown-item">
+                    <i class="mdi mdi-grease-pencil text-primary"></i>
+                    Edit
+                  </a>
+                  <a class="dropdown-item">
+                    <i class="mdi mdi-delete text-primary"></i>
+                    Delete
+                  </a>
                 </div>
               </div>
             </div>
+            <canvas id="speedChart" width="600" height="400"></canvas>
           </div>
         </div>
+      </div>
+
       </div>
     </div>
 <!--    <div class="col-sm-4 flex-column d-flex stretch-card">-->
@@ -533,6 +490,7 @@
 </template> 
 <script>
 import {changePeriod, getLkId, sendRequest, userInfo} from "@/helper";
+import {dynamicRub} from "@/charts";
 
 export default{
   //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
@@ -621,6 +579,9 @@ export default{
         sendRequest('/ransom/percentage').then(data => {
           this.ransomPercentage = data.data.ransomPercentage;
         });
+
+        //Charts
+        dynamicRub();
       }
     },
     watch: {

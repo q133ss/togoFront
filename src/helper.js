@@ -441,3 +441,14 @@ export function userInfo(){
     const response = axios.get(url+'/me', config);
     return response;
 }
+
+export function getDynamicsChart(format, type){
+    let settings = {
+        format: format,
+        type: type
+    };
+    let _data = {...data, ...settings};
+
+    const response = axios.post(url+'/charts/development-dynamics', _data, config);
+    return response;
+}
