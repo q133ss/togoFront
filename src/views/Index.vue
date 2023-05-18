@@ -7,7 +7,8 @@
 <!--          Тут будем делать text-danger, если не все данные подгруженны-->
           <h6 class="font-weight-normal mb-2">Последнее обновление: 2020-04-02</h6>
           <h6 class="font-weight-normal mb-2">Следующие обновление: 2020-04-02</h6>
-          <button class="btn btn-outline-primary" v-on:click="updateNow">Обновить сейчас</button>
+          <button v-if="initData" class="btn btn-outline-primary" v-on:click="updateNow">Обновить сейчас</button>
+          <button v-else class="btn btn-outline-primary" v-on:click="loadInitData">Загрузить данные</button>
         </div>
 <!--        <div class="ms-lg-5 d-lg-flex d-none">-->
 <!--          <button type="button" class="btn bg-white btn-icon">-->
@@ -531,13 +532,14 @@
   </div>
 </template> 
 <script>
-import {changePeriod, getLkId, sendRequest} from "@/helper";
+import {changePeriod, getLkId, sendRequest, userInfo} from "@/helper";
 
 export default{
   //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
     name: "Index",
     data() {
       return {
+        initData: null,
         //даты
         day: false,
         month: false,
@@ -575,6 +577,10 @@ export default{
 
         return false;
       }
+
+      userInfo().then(data => {
+        this.initData = data.data.user.init_data;
+      });
 
       this.dateFrom = getDate('dateFrom');
       this.dateTo = getDate('dateTo');
@@ -632,6 +638,9 @@ export default{
       },
       updateNow: function (){
           sendRequest('/update-data');
+      },
+      loadInitData: function (){
+        sendRequest('/load-primary-data');
       }
     }
 }

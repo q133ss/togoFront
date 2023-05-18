@@ -15,6 +15,7 @@ export function getApiKey(){
         }
         if (c.indexOf(name) == 0) {
             let resp = c.substring(name.length, c.length).slice(1);
+            console.log(resp)
             return 'Bearer '+resp;
         }
     }
@@ -323,6 +324,7 @@ export function sendRequestWithBody(endpoint, _data){
 
 //отправляет запрос на сервер
 export function sendRequest(endpoint){
+    data = {};
     const response = axios.post(url+endpoint,data, config);
     return response;
 }
@@ -434,4 +436,9 @@ export function notifications(){
         // allNotifications.innerText = 'Все уведомления';
         // notificationsElement.appendChild(allNotifications);
     });
+}
+
+export function userInfo(){
+    const response = axios.get(url+'/me', config);
+    return response;
 }
