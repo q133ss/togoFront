@@ -67,7 +67,10 @@
         });
 
         //Уведомления
-        notifications();
+        //Подгружаем при каждом клике
+        document.querySelector('.notifBell').addEventListener('click', function (e){
+            notifications();
+        });
     </script>
     <script>
         function lkClick(id){
@@ -87,7 +90,7 @@
                     <ul class="navbar-nav navbar-nav-left">
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" style="opacity: 0" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notifBell" id="notificationDropdown" style="opacity: 0" href="#" data-bs-toggle="dropdown">
                                 <i class="mdi mdi-bell mx-0"></i>
 <!--                                <span class="count bg-success">2</span>-->
                             </a>

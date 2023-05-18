@@ -379,6 +379,11 @@ document.addEventListener('changeLk', changeLkEvent);
 
 //уведомления
 export function notifications(){
+    //Удаляем старые
+    let items = document.querySelectorAll('#notifications .preview-item');
+    items.forEach(item => item.remove());
+
+    //Добавляем новые
     let notificationsElement = document.getElementById("notifications");
     let notifications = axios.get(url+'/notifications', config);
     notifications.then((data) => {
