@@ -76,9 +76,9 @@ export function getLkId(){
     return id;
 }
 
-let data = {lk_id : getLkId()};
 //Данные для get запросов
-data += getPeriod();
+let data = {lk_id : getLkId()};
+data = {...data, ...getPeriod()};
 
 //Возвращает информацию о текущем юзере
 export function getUserData(){
@@ -324,7 +324,6 @@ export function sendRequestWithBody(endpoint, _data){
 
 //отправляет запрос на сервер
 export function sendRequest(endpoint){
-    data = {};
     const response = axios.post(url+endpoint,data, config);
     return response;
 }
