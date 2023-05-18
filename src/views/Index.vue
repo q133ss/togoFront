@@ -259,33 +259,55 @@
       </div>
       <div class="row">
 
-      <div class="col-sm-12 grid-margin d-flex stretch-card">
+      <div class="col-sm-6 grid-margin d-flex stretch-card">
         <div class="card">
           <div class="card-body">
             <div class="d-flex align-items-center justify-content-between">
-              <h4 class="card-title mb-2">Динамика развития, руб/шт</h4>
-              <div class="dropdown">
-                <a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
-                <a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="settingsDropdownsales">
-                  <i class="mdi mdi-dots-horizontal"></i></a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdownsales">
-                  <a class="dropdown-item">
-                    <i class="mdi mdi-grease-pencil text-primary"></i>
-                    Edit
-                  </a>
-                  <a class="dropdown-item">
-                    <i class="mdi mdi-delete text-primary"></i>
-                    Delete
-                  </a>
-                </div>
-              </div>
+              <h4 class="card-title mb-2">Динамика развития, шт</h4>
             </div>
             <canvas id="speedChart" width="600" height="400"></canvas>
           </div>
         </div>
       </div>
 
+        <div class="col-sm-6 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Динамика развития, руб</h4>
+              </div>
+              <canvas id="dynamicRub" width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
+
+<!--      Склады-->
+      <div class="row">
+
+        <div class="col-sm-6 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Распределение остатков по складам, %</h4>
+              </div>
+              <canvas id="warehouses" width="1000" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Распределение продаж по складам, %</h4>
+              </div>
+              <canvas id="warehouseSales" width="1000" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      Склады-->
     </div>
 <!--    <div class="col-sm-4 flex-column d-flex stretch-card">-->
 <!--      <div class="row flex-grow">-->
@@ -490,7 +512,7 @@
 </template> 
 <script>
 import {changePeriod, getLkId, sendRequest, userInfo} from "@/helper";
-import {dynamicRub} from "@/charts";
+import {dynamicThings, dynamicRub, warehouses, warehouseSales} from "@/charts";
 
 export default{
   //ВСЕ ЭНДПОИНТЫ ТЕПЕРЬ ПОСТ
@@ -581,7 +603,10 @@ export default{
         });
 
         //Charts
+        dynamicThings();
         dynamicRub();
+        warehouses();
+        warehouseSales();
       }
     },
     watch: {
