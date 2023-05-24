@@ -316,6 +316,11 @@ export function changeLkEvent(event){
     return true;
 }
 
+export function getLastUpdate(){
+    const response = axios.get(url+'/profile/update-time/'+getLkId(), config);
+    return response;
+}
+
 //отправляет запрос на сервер с данными
 export function sendRequestWithBody(endpoint, _data){
     const response = axios.post(url+endpoint, _data, config);
