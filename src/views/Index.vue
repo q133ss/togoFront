@@ -346,7 +346,6 @@
 <!--      Склады-->
     </div>
   </div>
-
 </template> 
 <script>
 import {changePeriod, getLastUpdate, getLkId, sendRequest, userInfo} from "@/helper";

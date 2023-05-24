@@ -3,7 +3,7 @@
     <div class="col-sm-6 mb-4 mb-xl-0">
       <div class="d-lg-flex align-items-center">
         <div>
-          <h3 class="text-dark font-weight-bold mb-2">Аналитика по товарам</h3>
+          <h3 class="text-dark font-weight-bold mb-2">Финансовый анализ</h3>
           <!--          Тут будем делать text-danger, если не все данные подгруженны-->
           <div class="d-flex">
             <h6 class="font-weight-normal mb-2" style="margin-top: 2px;">Последнее обновление: {{lastUpdate}}</h6>
@@ -23,24 +23,16 @@
           <button v-if="initData" class="btn btn-outline-primary" v-on:click="updateNow">Обновить сейчас</button>
           <button v-else class="btn btn-outline-primary" v-on:click="loadInitData">Загрузить данные</button>
         </div>
-<!--                <div class="ms-lg-5 d-lg-flex d-none">-->
-<!--                  <button type="button" class="btn bg-white btn-icon">-->
-<!--                    <i class="mdi mdi-view-grid text-success"></i>-->
-<!--                  </button>-->
-<!--                  <button type="button" class="btn bg-white btn-icon ms-2">-->
-<!--                    <i class="mdi mdi-format-list-bulleted font-weight-bold text-primary"></i>-->
-<!--                  </button>-->
-<!--                </div>-->
-        <div class="form-group ms-lg-5">
-          <select class="form-control" id="exampleSelectGender">
-            <option disabled selected>Артикул поставщика</option>
-            <option>1111</option>
-            <option>2222</option>
-          </select>
-        </div>
+        <!--        <div class="ms-lg-5 d-lg-flex d-none">-->
+        <!--          <button type="button" class="btn bg-white btn-icon">-->
+        <!--            <i class="mdi mdi-view-grid text-success"></i>-->
+        <!--          </button>-->
+        <!--          <button type="button" class="btn bg-white btn-icon ms-2">-->
+        <!--            <i class="mdi mdi-format-list-bulleted font-weight-bold text-primary"></i>-->
+        <!--          </button>-->
+        <!--        </div>-->
       </div>
     </div>
-
     <div class="col-sm-6">
       <div class="d-flex align-items-center justify-content-md-end">
         <div class="pe-1 mb-3 mb-xl-0">
@@ -98,8 +90,8 @@
           <div class="card sale-diffrence-border">
             <div class="card-body">
               <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{orders ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Заказы</h4>
+              <h2 class="text-dark mb-2 font-weight-bold">{{netProfit ?? 'Данные отсутствуют'}}</h2>
+              <h4 class="card-title mb-2">Чистая прибыль</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
           </div>
@@ -120,8 +112,30 @@
           <div class="card sale-diffrence-border">
             <div class="card-body">
               <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
+              <h2 class="text-dark mb-2 font-weight-bold">---</h2>
+              <h4 class="card-title mb-2">Рентабельность</h4>
+              <small class="text-muted">APRIL 2019</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 d-flex grid-margin stretch-card">
+          <div class="card sale-diffrence-border">
+            <div class="card-body">
+              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
+              <h2 class="text-dark mb-2 font-weight-bold">---</h2>
+              <h4 class="card-title mb-2">Выплатить инвест</h4>
+              <small class="text-muted">APRIL 2019</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 d-flex grid-margin stretch-card">
+          <div class="card sale-diffrence-border">
+            <div class="card-body">
+              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
               <h2 class="text-dark mb-2 font-weight-bold">{{leftovers ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Остаток на WB</h4>
+              <h4 class="card-title mb-2">Полный запас</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
           </div>
@@ -131,131 +145,34 @@
           <div class="card sale-diffrence-border">
             <div class="card-body">
               <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{turnover ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Оборачиваемость</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{revenueForecast ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Прогноз выручки</h4>
+              <h2 class="text-dark mb-2 font-weight-bold">{{inPurchase ?? 'Данные отсутствуют'}}</h2>
+              <h4 class="card-title mb-2">В закупе</h4>
               <small class="text-muted">APRIL 2019</small>
             </div>
           </div>
         </div>
 
 
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">---</h2>
-              <h4 class="card-title mb-2">Самовыкпы</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{cancels ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Отмены</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">---</h2>
-              <h4 class="card-title mb-2">Реклама</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{returns ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Возвраты</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{ransomPercentage ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">% выкупа</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{logisticsPercent ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Логистика %</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 d-flex grid-margin stretch-card">
-          <div class="card sale-diffrence-border">
-            <div class="card-body">
-              <!--              <i class="mdi mdi-alert-circle-outline"></i>-->
-              <h2 class="text-dark mb-2 font-weight-bold">{{comissionPercent ?? 'Данные отсутствуют'}}</h2>
-              <h4 class="card-title mb-2">Комиссия %</h4>
-              <small class="text-muted">APRIL 2019</small>
-            </div>
-          </div>
-        </div>
-<!--        Logistics %-->
-<!--        Commission %-->
       </div>
 
       <!--      Таблица-->
       <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-lg-4 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Распределение маржинальной прибыли</h4>
+              <h4 class="card-title">Баланс</h4>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                   <tr>
-                    <th>Артикул</th>
-                    <th>Заказы</th>
-                    <th>Орг Выручка</th>
-                    <th>Маржа</th>
-                    <th>К опалате</th>
-                    <th>Реклама</th>
+                    <th>Активы/Пассивы</th>
+                    <th>Сумма</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                     <td>---</td>
                     <td>---</td>
-                    <td>---</td>
-                    <td>----</td>
-                    <td>----</td>
-                    <td>----</td>
                   </tr>
                   </tbody>
                 </table>
@@ -263,63 +180,93 @@
             </div>
           </div>
         </div>
-      </div>
-      <!--      Склады-->
-
-
-            <div class="row">
-
-              <div class="col-sm-6 grid-margin d-flex stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <h4 class="card-title mb-2">Распределение остатков по складам, %</h4>
-                    </div>
-                    <canvas id="warehouses" width="1000" height="400"></canvas>
-                  </div>
-                </div>
+        <div class="col-sm-4 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Распределение остатков клиента</h4>
               </div>
-
-              <div class="col-sm-6 grid-margin d-flex stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                      <h4 class="card-title mb-2">Распределение продаж по складам, %</h4>
-                    </div>
-                    <canvas id="warehouseSales" width="1000" height="400"></canvas>
-                  </div>
-                </div>
-              </div>
+              <canvas id="stockChart" width="600" height="400"></canvas>
             </div>
+          </div>
+        </div>
 
+        <div class="col-sm-4 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Распределение выручки по категориям</h4>
+              </div>
+              <canvas id="revenueByCat" width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!--      Склады-->
-
-      <!--      Чарты-->
       <div class="row">
-
-        <div class="col-sm-6 grid-margin d-flex stretch-card">
+        <div class="col-sm-4 grid-margin d-flex stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex align-items-center justify-content-between">
-                <h4 class="card-title mb-2">Динамика развития, шт</h4>
+                <h4 class="card-title mb-2">Распределение доходов по статьям</h4>
               </div>
-              <canvas id="speedChart" width="600" height="400"></canvas>
+              <canvas id="profitByPost" width="600" height="400"></canvas>
             </div>
           </div>
         </div>
 
-        <div class="col-sm-6 grid-margin d-flex stretch-card">
+        <div class="col-sm-8 grid-margin d-flex stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="d-flex align-items-center justify-content-between">
-                <h4 class="card-title mb-2">Динамика развития, руб</h4>
+                <h4 class="card-title mb-2">Расходы</h4>
               </div>
-              <canvas id="dynamicRub" width="600" height="400"></canvas>
+              <canvas id="profitByPost" width="600" height="400"></canvas>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-sm-12 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">Рентабельность</h4>
+              </div>
+              <canvas id="profitByPost" width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">P&L</h4>
+              </div>
+              <canvas id="profitByPost" width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 grid-margin d-flex stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h4 class="card-title mb-2">ДДС</h4>
+              </div>
+              <canvas id="profitByPost" width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -328,7 +275,7 @@
 import {changePeriod, getLastUpdate, getLkId, sendRequest, userInfo} from "@/helper";
 import {dynamicThings, dynamicRub, warehouses, warehouseSales} from "@/charts";
 export default {
-  name: "Analytics",
+  name: "Finance",
     data() {
       return {
         initData: null,
@@ -344,21 +291,24 @@ export default {
 
         retailPriceWithdiscRub:null,
         spp: null,
+        netProfit: null,
         retailPriceWithdiscRubMinusSpp: null,
+        inPurchase: null,
         revenue: null,
-        turnover:null,
         orders: null,
         revenueForecast: null,
         leftovers: null,
+        stockTotal: null,
         margin: null,
         returns: null,
         willList: null,
         ransomPercentage: null,
         logistics: null,
         commission: null,
-        cancels: null,
-        logisticsPercent: null,
-        comissionPercent: null
+        // sales: null,
+        // adv: null,
+        // cancels: null,
+        // ransomPercentage: null
       };
     },
     mounted() {
@@ -396,6 +346,14 @@ export default {
           this.retailPriceWithdiscRub = data.data.total;
         });
 
+        sendRequest('/net-profit').then(data => {
+          this.netProfit = data.data.netProfit;
+        });
+
+        sendRequest('/in-purchase').then(data => {
+          this.inPurchase = data.data.inPurchase;
+        });
+
         sendRequest('/spp').then(data => {
           this.spp = data.data.spp;
         });
@@ -410,10 +368,6 @@ export default {
 
         sendRequest('/orders').then(data => {
           this.orders = data.data.orders;
-        });
-
-        sendRequest('/turnover').then(data => {
-          this.turnover = data.data.turnover;
         });
 
         sendRequest('/revenue/forecast').then(data => {
@@ -451,24 +405,20 @@ export default {
         sendRequest('/commission').then(data => {
           this.commission = data.data.commission;
         });
-
-        sendRequest('/cancels').then(data => {
-          this.cancels = data.data.cancels;
-        });
-
-        sendRequest('/logistics/percent').then(data => {
-          this.logisticsPercent = data.data.logisticsPercent;
-        });
-
-        sendRequest('/commission/percent').then(data => {
-          this.comissionPercent = data.data.commissionPercent;
-        });
+        //
+        // sendRequest('/cancels').then(data => {
+        //   this.cancels = data.data.cancels;
+        // });
+        //
+        // sendRequest('/ransom/percentage').then(data => {
+        //   this.ransomPercentage = data.data.ransomPercentage;
+        // });
 
         //Charts
-        warehouses();
-        warehouseSales();
         dynamicThings();
         dynamicRub();
+        // warehouses();
+        // warehouseSales();
       }
     },
     watch: {
