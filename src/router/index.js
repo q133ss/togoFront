@@ -52,11 +52,14 @@ const router = createRouter({
         {path: '/profile', component: Profile, beforeEnter: [checkAuth]},
         {path: '/settings', component: Settings, beforeEnter: [checkAuth]},
         {path: '/analytics', component: Analytics, beforeEnter: [checkAuth]},
+        {path: '/finance', component: Analytics, beforeEnter: [checkAuth]},
+
         {path: '/abc', component: Analytics, beforeEnter: [checkAuth]},
-        {path: '/stock', component: Analytics, beforeEnter: [checkAuth]},
-        {path: '/promotion', component: Analytics, beforeEnter: [checkAuth]},
-        {path: '/competitors', component: Analytics, beforeEnter: [checkAuth]},
-        {path: '/finance', component: Analytics, beforeEnter: [checkAuth]}
+        {path: '/abc/size', component: Analytics, beforeEnter: [checkAuth]}
+
+        // {path: '/stock', component: Analytics, beforeEnter: [checkAuth]},
+        // {path: '/promotion', component: Analytics, beforeEnter: [checkAuth]},
+        // {path: '/competitors', component: Analytics, beforeEnter: [checkAuth]}
     ]
 });
 
